@@ -47,9 +47,27 @@ function sendSearch(queryURL){
       method: "GET"
     }).then(function (response) {
       console.log(response);
-      var data = response.docs;
+      var data = response.response.docs;
       console.log(data);
+      showResults(data);
   })
+}
+
+function showResults(data){
+
+  data.forEach(element => {
+    var d = $("<div>");
+    var h = $("<h3>");
+    var p = $("<p>");
+    h.text(element.headline.main);
+    p.text(element.abstract);
+    d.append(h);
+    d.append(p);
+    d.attr("href", element.web_url);
+    $("#topArticlesDiv").append(d);
+
+  });
+  
 }
 
 function setQuery(needFacet){
